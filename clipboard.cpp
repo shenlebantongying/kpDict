@@ -4,9 +4,22 @@ clipboard::clipboard(QObject *parent)
         : QObject{parent} {
     this->sysClipboard = QGuiApplication::clipboard();
 
-    connect(sysClipboard, &QClipboard::dataChanged, this, [=]() { emit clipChanged(); });
+    connect(&m_clipboardMonitorTimer, &QTimer::timeout, this, [this](){ updateCurClipboard(); });
+    m_clipboardMonitorTimer.start(1000);
 }
 
 QString clipboard::getWord() const {
-    return sysClipboard->text();
+    return m_currentContent;
+}
+
+void clipboard::updateCurClipboard(){
+    const QString content = this->sysClipboard->text();
+
+    if (content == m_currentContent){
+        return;
+    } else {
+        m_currentContent = content;
+        emit clipChanged();
+    }
+
 }
