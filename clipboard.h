@@ -13,7 +13,7 @@ public:
     explicit clipboard(QObject *parent = nullptr);
 
     QString curClipboardContent;
-    QString getWord() const;
+    [[nodiscard]] QString getWord() const;
 
 private:
     QClipboard *sysClipboard;
@@ -22,7 +22,6 @@ private:
     void updateCurClipboard();
 
 signals:
-
     void clipChanged();
 };
 

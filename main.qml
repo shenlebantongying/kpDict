@@ -28,7 +28,7 @@ Window {
                 }
             }',
             btnRow,
-            m_url);
+            name);
     }
 
     ColumnLayout {
@@ -44,58 +44,11 @@ Window {
             Layout.fillWidth: true
             padding: 5
             font.pointSize: 16
+            placeholderText:"Enter your word here..."
         }
 
         Row {
             id: btnRow
-            Button {
-                text: "Google"
-                onClicked: {
-                    toplevel.searchPrefix = "https://www.google.com/search?q=";
-                    triggerSearch();
-                    addDictBtn("nice","https://www.google.com/search?q=");
-                }
-            }
-
-            Button {
-                text: "Merriam-Webster"
-                onClicked: {
-                    toplevel.searchPrefix = "https://www.merriam-webster.com/dictionary/";
-                    triggerSearch();
-                }
-            }
-
-            Button {
-                text: "Wiktionary"
-                onClicked: {
-                    toplevel.searchPrefix = "https://en.wiktionary.org/wiki/nice";
-                    triggerSearch();
-                }
-            }
-
-            Button {
-                text: "Oxford"
-                onClicked: {
-                    toplevel.searchPrefix = "https://www.lexico.com/definition/";
-                    triggerSearch();
-                }
-            }
-
-            Button {
-                text: "Longman"
-                onClicked: {
-                    toplevel.searchPrefix = "https://www.ldoceonline.com/dictionary/";
-                    triggerSearch();
-                }
-            }
-
-            Button {
-                text: "Cambridge"
-                onClicked: {
-                    toplevel.searchPrefix = "https://dictionary.cambridge.org/dictionary/english/";
-                    triggerSearch();
-                }
-            }
         }
 
         WebEngineView {
