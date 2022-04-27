@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
+import QtQuick.Layouts
 import QtWebEngine
 
 Window {
@@ -17,7 +18,20 @@ Window {
         webview.url = searchPrefix + wordField.text;
     }
 
-    Column {
+    function addDictBtn (name:string,m_url:string){
+        Qt.createQmlObject('import QtQuick;import QtQuick.Controls;
+            Button {
+                text: "'+name+'"
+                onClicked: {
+                    toplevel.searchPrefix = "'+m_url+'";
+                    triggerSearch();
+                }
+            }',
+            btnRow,
+            m_url);
+    }
+
+    ColumnLayout {
         anchors.fill: parent
 
         TextField {
@@ -27,17 +41,19 @@ Window {
                 triggerSearch();
             }
 
-            width: 1024
-            padding: 10
+            Layout.fillWidth: true
+            padding: 5
             font.pointSize: 16
         }
 
         Row {
+            id: btnRow
             Button {
                 text: "Google"
                 onClicked: {
                     toplevel.searchPrefix = "https://www.google.com/search?q=";
                     triggerSearch();
+                    addDictBtn("nice","https://www.google.com/search?q=");
                 }
             }
 
@@ -84,8 +100,9 @@ Window {
 
         WebEngineView {
             id: webview
-            width: 1024
-            height: 800
+            Layout.fillWidth: true
+            Layout.preferredWidth: 1024
+            Layout.preferredHeight: 750
         }
     }
 }
