@@ -25,7 +25,8 @@ Merriam-Webster https://www.merriam-webster.com/dictionary/
 Wiktionary https://en.wiktionary.org/wiki/
 Oxford https://www.lexico.com/definition/
 Longman https://www.ldoceonline.com/dictionary/
-Cambridge https://dictionary.cambridge.org/dictionary/english/)";
+Cambridge https://dictionary.cambridge.org/dictionary/english/
+Youdao https://www.youdao.com/result?lang=en&word=)";
 
     configStream.close();
 }
@@ -34,18 +35,17 @@ Cambridge https://dictionary.cambridge.org/dictionary/english/)";
 void loadUserConfig(){
     auto configFile = std::filesystem::path(getenv("HOME")) / ".kopperdict";
 
-    if (std::filesystem::exists(configFile)){
-        std::ifstream configStream(configFile);
-        std::string name;
-        std::string prefixUrl;
-        while(configStream >> name >> prefixUrl){
-            std::cout<<"nice";
-            addDictBtn(QString::fromStdString(name),
-                       QString::fromStdString(prefixUrl));}
-
-    } else {
+    if (!std::filesystem::exists(configFile)){
         createDefaultUserConfig(configFile);
     }
+
+    std::ifstream configStream(configFile);
+    std::string name;
+    std::string prefixUrl;
+    while(configStream >> name >> prefixUrl){
+        std::cout<<"nice";
+        addDictBtn(QString::fromStdString(name),
+                   QString::fromStdString(prefixUrl));}
 }
 
 int main(int argc, char *argv[]) {
