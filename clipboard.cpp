@@ -15,7 +15,10 @@ QString clipboard::getWord() const {
 void clipboard::updateCurClipboard(){
     const QString content = this->sysClipboard->text();
 
-    if (content == m_currentContent){
+
+    if (content == m_currentContent ||
+        content.length() == 0 // TODO: Hack due to wayland, remove when KF6 released.
+    ){
         return;
     } else {
         m_currentContent = content;
