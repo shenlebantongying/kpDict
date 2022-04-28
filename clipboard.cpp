@@ -5,7 +5,6 @@ clipboard::clipboard(QObject *parent)
     this->sysClipboard = QGuiApplication::clipboard();
 
     connect(&m_clipboardMonitorTimer, &QTimer::timeout, this, [this](){ updateCurClipboard(); });
-    m_clipboardMonitorTimer.start(1000);
 }
 
 QString clipboard::getWord() const {
@@ -25,4 +24,12 @@ void clipboard::updateCurClipboard(){
         emit clipChanged();
     }
 
+}
+
+void clipboard::stop() {
+    m_clipboardMonitorTimer.stop();
+}
+
+void clipboard::observe() {
+    m_clipboardMonitorTimer.start(1000);
 }

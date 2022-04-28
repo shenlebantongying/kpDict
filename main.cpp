@@ -1,26 +1,17 @@
-#include "clipboard.h"
+#include "mainwindow.h"
 
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QtWebEngineQuick/qtwebenginequickglobal.h>
-#include <QQmlComponent>
-#include <QQmlContext>
+#include <QApplication>
 #include <filesystem>
 #include <iostream>
 #include <fstream>
 #include <string_view>
-
-QObject *toplevel;
-
-void addDictBtn(QString name, QString prefixUrl){
-    QMetaObject::invokeMethod(toplevel, "addDictBtn",Q_ARG(QString, name),Q_ARG(QString, prefixUrl));
-}
+MainWindow * win;
 
 void createDefaultUserConfig(const std::filesystem::path& path){
     std::ofstream configStream(path);
 
     configStream <<
-R"(Google https://www.google.com/search?q=
+                 R"(Google https://www.google.com/search?q=
 Merriam-Webster https://www.merriam-webster.com/dictionary/
 Wiktionary https://en.wiktionary.org/wiki/
 Oxford https://www.lexico.com/definition/
@@ -30,7 +21,6 @@ Youdao https://www.youdao.com/result?lang=en&word=)";
 
     configStream.close();
 }
-
 
 void loadUserConfig(){
     auto configFile = std::filesystem::path(getenv("HOME")) / ".kopperdict";
@@ -44,33 +34,15 @@ void loadUserConfig(){
     std::string prefixUrl;
     while(configStream >> name >> prefixUrl){
         std::cout<<"nice";
-        addDictBtn(QString::fromStdString(name),
+        win->addDict(QString::fromStdString(name),
                    QString::fromStdString(prefixUrl));}
 }
 
-int main(int argc, char *argv[]) {
-    // WebEngine
-    QtWebEngineQuick::initialize();
-
-    // Qt
-    QGuiApplication app(argc, argv);
-
-    // QML
-    QQmlApplicationEngine engine;
-    QQmlComponent component(&engine, QUrl(u"qrc:/qml_web/main.qml"_qs));
-    toplevel = component.create();
-
-    auto *wordField = toplevel->findChild<QObject *>("aWordField");
-
-    // Clipboard monitor
-    auto *clip = new clipboard();
-
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    win = new MainWindow();
     loadUserConfig();
-
-    QObject::connect(clip, &clipboard::clipChanged, [=]() {
-        wordField->setProperty("text", clip->getWord());
-        QMetaObject::invokeMethod(toplevel, "triggerSearch");
-    });
-
-    return QGuiApplication::exec();
+    win->show();
+    return QApplication::exec();
 }

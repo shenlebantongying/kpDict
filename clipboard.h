@@ -15,6 +15,9 @@ public:
     QString curClipboardContent;
     [[nodiscard]] QString getWord() const;
 
+    void stop();
+    void observe();
+
 private:
     QClipboard *sysClipboard;
     QTimer m_clipboardMonitorTimer;
