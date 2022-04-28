@@ -33,7 +33,6 @@ void loadUserConfig(){
     std::string name;
     std::string prefixUrl;
     while(configStream >> name >> prefixUrl){
-        std::cout<<"nice";
         win->addDict(QString::fromStdString(name),
                    QString::fromStdString(prefixUrl));}
 }

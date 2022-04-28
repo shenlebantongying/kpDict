@@ -3,42 +3,48 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    clipper = new clipboard();
+    // News
+    clipper     = new clipboard();
+    toplevel    = new QVBoxLayout(this);
+    currentWord = new QLineEdit();
+    dictRow     = new QHBoxLayout(this);
+    browser     = new QWebEngineView();
+
+    QWidget *centralWidget = new QWidget();
+
+    currentSearchSource = "https://www.google.com/search?q=";
+
+
+    // Composition
+    toplevel->addWidget(currentWord);
+    toplevel->addLayout(dictRow);
+    toplevel->addWidget(browser);
+
+    centralWidget->setLayout(toplevel);
+    this->setCentralWidget(centralWidget);
+
+    // Styling
+    this->setMinimumSize(800,950);
+
+    toplevel->setSpacing(0);
+    currentWord->setContentsMargins(0,0,0,0);
+    dictRow->setContentsMargins(0,0,0,0);
+    toplevel->setContentsMargins(0,0,0,0);
+
+    currentWord->setPlaceholderText("Enter your words here...");
+
+    // Logic
+
     connect(clipper,
             &clipboard::clipChanged,
             this,
             [=]{ currentWord->setText(clipper->getWord());
                  triggerSearch();});
 
-    this->setMinimumSize(800,950);
-
-    toplevel = new QVBoxLayout(this);
-
-    currentWord = new QLineEdit();
-    currentWord->setPlaceholderText("Enter your words here...");
-
     connect(currentWord,
             &QLineEdit::editingFinished,
             this,
             [=]{this->triggerSearch();});
-
-    toplevel->addWidget(currentWord);
-
-    dictRow = new QHBoxLayout(this);
-
-    toplevel->addLayout(dictRow);
-
-    browser = new QWebEngineView();
-
-    QWidget *centralWidget = new QWidget();
-    centralWidget->setLayout(toplevel);
-
-    toplevel->addWidget(browser);
-    this->setCentralWidget(centralWidget);
-
-    toplevel->setContentsMargins(0,0,0,0);
-
-    currentSearchSource = "https://www.google.com/search?q=";
 
 }
 
