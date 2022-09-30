@@ -5,8 +5,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // News
     clipper     = new clipboard();
+
     toplevel    = new QVBoxLayout(this);
+    autoCheckBtn = new QCheckBox();
+    searchBar = new QHBoxLayout(this);
     currentWord = new QLineEdit();
+
     dictRow     = new QHBoxLayout(this);
     browser     = new QWebEngineView();
 
@@ -14,9 +18,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     currentSearchSource = "https://www.google.com/search?q=";
 
+    autoCheckBtn->setStyleSheet("QCheckBox::indicator { width:23px; height: 23px; }");
+    autoCheckBtn->setToolTip("Auto update from clipboard");
+
+    searchBar->addWidget(autoCheckBtn);
+    searchBar->addWidget(currentWord);
 
     // Composition
-    toplevel->addWidget(currentWord);
+    toplevel->addLayout(searchBar);
     toplevel->addLayout(dictRow);
     toplevel->addWidget(browser);
 
@@ -54,6 +63,18 @@ void MainWindow::addDict(const QString& name, const QString& dictPrefix){
             this,[=]{ this->currentSearchSource=dictPrefix;
                       triggerSearch();});
 
+    connect(autoCheckBtn,&QCheckBox::stateChanged,
+            this,[=](int state) {
+              if ( Qt::CheckState::Checked == state){
+                clipper->observe();
+              } else if (Qt::CheckState::Unchecked == state) {
+                clipper -> stop();
+              }
+    });
+
+    autoCheckBtn->setCheckState(Qt::Checked);
+
+
     dictRow->addWidget(gbtn);
 }
 
@@ -64,14 +85,16 @@ void MainWindow::triggerSearch(){
 MainWindow::~MainWindow()
 = default;
 
-bool MainWindow::event(QEvent *e) {
-    if (e->type() == QEvent::WindowActivate) {
-        clipper->stop();
-    } else if (e->type() == QEvent::WindowDeactivate){
-        clipper->observe();
-    }
-    return QMainWindow::event(e);
-}
+// Hard to design. You cannot perfectly determine if user want to copy & search the word
 
+//bool MainWindow::event(QEvent *e) {
+//    if (e->type() == QEvent::WindowActivate) {
+//        clipper->stop();
+//    } else if (e->type() == QEvent::WindowDeactivate){
+//        clipper->observe();
+//    }
+//    return QMainWindow::event(e);
+//}
+//
 
 

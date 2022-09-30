@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QWebEngineView>
-#include <QVBoxLayout>
-#include <QPushButton>
+#include <QCheckBox>
 #include <QLineEdit>
+#include <QMainWindow>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QWebEngineView>
 
 #include "clipboard.h"
 
@@ -22,16 +23,20 @@ private:
     // Yes, use currentWord to hold current word,
     // So that the need for sync data is eliminated.
     QLineEdit * currentWord;
+    QWebEngineView * browser;
+    QCheckBox * autoCheckBtn;
+
 
     clipboard * clipper;
-
     QString currentSearchSource;
+
+    // Layout related
     QVBoxLayout * toplevel;
+    QHBoxLayout * searchBar;
     QHBoxLayout * dictRow;
-    QWebEngineView * browser;
+
 
     void triggerSearch();
 
-    bool event(QEvent *e) override;
 };
 #endif // MAINWINDOW_H
