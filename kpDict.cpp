@@ -16,8 +16,8 @@ kpDict::kpDict(QWidget *parent)
 
     historyPanel = new QListWidget();
     // Ensure ridiciously small
-    historyPanel->setMinimumWidth(100);
-    historyPanel->setMaximumWidth(400);
+    historyPanel->setMinimumWidth(200);
+    historyPanel->setMaximumWidth(300);
     historyPanel->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     const QString RIGHT_TRI = "▶";
