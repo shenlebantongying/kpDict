@@ -1,6 +1,4 @@
 #include "kpDict.h"
-#include <iostream>
-
 #include "common.h"
 
 kpDict::kpDict(QWidget *parent)
@@ -53,7 +51,7 @@ kpDict::kpDict(QWidget *parent)
     // Logic
     clipper = new clipboard();
 
-    //
+    // Handle History file
     // TODO: ugly
     auto p = QDir::home();
     p.cd(KPDICT_PATH);
@@ -72,17 +70,35 @@ kpDict::kpDict(QWidget *parent)
     historyFile.close();
 
 
-    historyFile.open(QIODevice::WriteOnly | QIODevice::Text);
-    historyIO.setDevice(&historyFile);
+    // If existing length > HISTORY_CAP, nuke the file
+    // We only want last 100 history
 
-    // If existing length > 200, nuke the file
-    // And load the last 100 to history panel
-    if (cachedHistory.length() > 200) {
+    const int HISTORY_CAP = 200;
+    const int HISTORY_EXPECTED_LENGTH = 100;
+    assert(HISTORY_CAP > HISTORY_EXPECTED_LENGTH);
+
+    if (cachedHistory.length() > HISTORY_CAP) {
         historyFile.resize(0);
-        for (const auto &s: cachedHistory.last(100)) {
+        cachedHistory.remove(0, cachedHistory.length() - HISTORY_EXPECTED_LENGTH);
+
+        historyFile.open(QIODevice::WriteOnly | QIODevice::Text);
+        historyIO.setDevice(&historyFile);
+        for (const auto &s: cachedHistory) {
             historyIO << s << Qt::endl;
         }
+        historyFile.close();
+
     }
+
+    historyFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text | QIODevice::Unbuffered);
+    historyIO.setDevice(&historyFile);
+
+    for (const auto &s: cachedHistory) {
+        historyPanel->addItem(s);
+    }
+
+
+    cachedHistory.clear();
 
     // At this point, the historyIO is at the end pos which can be written in other func
 
@@ -129,7 +145,6 @@ void kpDict::triggerSearch() {
 
 void kpDict::newHistory(const QString &word) {
     historyIO << wordInputField->text() << Qt::endl;;
-    historyIO.flush();
     historyPanel->insertItem(0, word);
 }
 

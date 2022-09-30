@@ -1,13 +1,13 @@
-#include "kpDict.h"
 
 #include <QApplication>
 #include <QDir>
 #include <QFile>
 #include <iostream>
 
+#include "kpDict.h"
 #include "common.h"
 
-kpDict *win;
+kpDict *kpdict;
 
 void loadUserConfig() {
     auto p = QDir::home();
@@ -44,9 +44,9 @@ Youdao https://www.youdao.com/result?lang=en&word=)";
         if (urlSeg.first().length() == 0) {
             continue;
         }
-        win->addDict(urlSeg.first(), urlSeg.last());
+        kpdict->addDict(urlSeg.first(), urlSeg.last());
         if (not initSetted) {
-            win->currentSearchSource = urlSeg.last();
+            kpdict->currentSearchSource = urlSeg.last();
             initSetted = true;
         }
     }
@@ -57,8 +57,8 @@ Youdao https://www.youdao.com/result?lang=en&word=)";
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    win = new kpDict();
+    kpdict = new kpDict();
     loadUserConfig();
-    win->show();
+    kpdict->show();
     return QApplication::exec();
 }

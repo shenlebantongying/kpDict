@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QObject>
 #include <QClipboard>
 #include <QGuiApplication>
+#include <QObject>
 #include <QString>
 #include <QTimer>
 

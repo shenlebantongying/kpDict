@@ -1,15 +1,15 @@
 #pragma once
 
 #include <QCheckBox>
+#include <QDir>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QMainWindow>
 #include <QPushButton>
-#include <QVBoxLayout>
-#include <QWebEngineView>
-#include <QDir>
-#include <QListWidget>
 #include <QSplitter>
 #include <QStringListModel>
+#include <QVBoxLayout>
+#include <QWebEngineView>
 
 #include "clipboard.h"
 
