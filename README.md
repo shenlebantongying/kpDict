@@ -10,23 +10,34 @@ Build require `qt6` and `qt6-webengine` and a modern C++ compiler (Need c++17).
 
 Stable distros ships older gcc by default. The older gcc has a series of build problems with qt6.
 
-For openSUSE leap 15.4, gcc10 from the main repo is needed:
+For openSUSE leap 15.4, gcc11-c++ from the main repo is needed:
 
 ```shell
-sudo zypper in gcc10-c++
+sudo zypper in gcc11-c++
 ```
 ```
 sudo zypper in qt6-gui-devel qt6-base-devel qt6-webengine  qt6-webenginewidgets-devel
 ```
 
 Then build with cmake:
-```shell
-export CC=/usr/bin/gcc-10
-export CXX=/usr/bin/g++-10
 
-mkdir build && cd ./build
-cmake ../
-cmake --build .
+```shell
+# Not needed if your default gcc is new enough
+export CXX=/usr/bin/g++-11
+
+cmake -S . -B build \
+      --install-prefix=/usr/local \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build --parallel 4
+
+# Optional step:
+# Install the binary to `/usr/local/bin/kopperdict`
+# Install prefix was set above
+
+cmake --install build
+
 ```
 
 # Custom dict urls

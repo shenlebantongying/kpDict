@@ -36,4 +36,8 @@ set_target_properties(kopperdict PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    install(TARGETS kopperdict DESTINATION bin)
+endif ()
+
 qt_finalize_executable(kopperdict)
