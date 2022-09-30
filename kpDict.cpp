@@ -4,11 +4,14 @@
 kpDict::kpDict(QWidget *parent)
         : QMainWindow(parent) {
 
-    historyPanel = new QListWidget();
 
     // Construct GUI
 
     auto mainSplitter = new QSplitter(this);
+
+    historyPanel = new QListWidget();
+    historyPanel->setMaximumWidth(300);
+    historyPanel->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     // Left side init
     auto leftContainer = new QWidget(this);
