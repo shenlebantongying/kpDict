@@ -6,7 +6,9 @@ A online dictionary result aggregator.
 
 Build require `qt6` and `qt6-webengine` and a modern C++ compiler (Need c++17).
 
-## openSUSE leap 15.4
+## Linux
+
+### openSUSE leap 15.4
 
 Stable distros ships older gcc by default. The older gcc has a series of build problems with qt6.
 
@@ -39,6 +41,20 @@ cmake --build build --parallel 4
 cmake --install build
 
 ```
+
+## Windows
+
+As of Qt6.4, MSVC2019(? MSVC2022 also works ?) and MSVC qt libs are needed (webengine on Windows has hard requirement on MSVC ). In Qt's MaintenanceTool.exe, qt webengine and webchannel have to be selected.
+
+QtCreator can detect almost everything. Vistual Studio and Clion seems need `${Qt_install_dir}\6.4.0\msvc2019_64\bin` to be in PATH.
+
+Use `windeployqt` on the `.exe` to copy DLLs automatically.
+
+## macOS
+
+Similar to linux, homebrewed qt works out of box and can be used to build an `.app` bundle. However, bundling dependencies into the `.app` is  magic that I don't know/care.
+
+TODO: cpack for win&mac?
 
 # Custom dict urls
 

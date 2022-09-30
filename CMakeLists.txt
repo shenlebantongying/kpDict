@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
         kpDict.h
         clipboard.cpp
         clipboard.h
+        common.h
         )
 
 qt_add_executable(kopperdict

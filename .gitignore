@@ -1,6 +1,11 @@
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
+cmake-build*/
+out/
+.vs/
+CMakeSettings.json
+
 *~
 *.autosave
 *.a

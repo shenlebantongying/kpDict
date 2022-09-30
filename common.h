@@ -1,3 +1,3 @@
 #pragma once
 
-#define KPDICT_PATH ".kopperdict"
+constexpr auto KPDICT_PATH = ".kopperdict";
