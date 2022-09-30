@@ -8,18 +8,18 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets WebEngineWidgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
+        kpDict.cpp
+        kpDict.h
         clipboard.cpp
         clipboard.h
-)
+        )
 
 qt_add_executable(kopperdict
     MANUAL_FINALIZATION

@@ -1,5 +1,4 @@
-#ifndef CLIPBOARD_H
-#define CLIPBOARD_H
+#pragma once
 
 #include <QObject>
 #include <QClipboard>
@@ -27,5 +26,3 @@ private:
 signals:
     void clipChanged();
 };
-
-#endif // CLIPBOARD_H

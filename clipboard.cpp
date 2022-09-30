@@ -12,12 +12,12 @@ QString clipboard::getWord() const {
 }
 
 void clipboard::updateCurClipboard(){
-    const QString content = this->sysClipboard->text();
+    const QString content = this->sysClipboard->text().trimmed();
 
 
     if (content == m_currentContent ||
-        content.length() == 0 // TODO: Hack due to wayland, remove when KF6 released.
-    ){
+        content.length() == 0 // avoid spaces
+            ) {
         return;
     } else {
         m_currentContent = content;
