@@ -4,14 +4,50 @@
 kpDict::kpDict(QWidget *parent)
         : QMainWindow(parent) {
 
-
     // Construct GUI
 
     auto mainSplitter = new QSplitter(this);
 
+    auto rightContainer = new QWidget(this);
+    auto rightLayout = new QHBoxLayout(this);
+
+///// Size Constraints are magics, TODO: review size constraints, size policy and min/max size
+    rightLayout->setSizeConstraint(QLayout::SetMaximumSize);
+
     historyPanel = new QListWidget();
-    historyPanel->setMaximumWidth(300);
+    // Ensure ridiciously small
+    historyPanel->setMinimumWidth(100);
+    historyPanel->setMaximumWidth(400);
     historyPanel->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    const QString RIGHT_TRI = "▶";
+    const QString LEFT_TRI = "◀";
+
+    auto hideHistoryBtn = new QPushButton(RIGHT_TRI);
+    hideHistoryBtn->setFixedWidth(10); // Qt's default font side is 9, 10 should be safe
+    hideHistoryBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+///// Magic Ends
+    connect(hideHistoryBtn, &QPushButton::clicked,
+            this, [=] {
+                if (historyPanel->isVisible()) {
+                    historyPanel->hide();
+                    hideHistoryBtn->setText(LEFT_TRI);
+                    rightContainer->adjustSize();
+                } else {
+                    historyPanel->show();
+                    hideHistoryBtn->setText(RIGHT_TRI);
+                    rightContainer->adjustSize();
+
+                }
+            });
+
+    rightLayout->addWidget(hideHistoryBtn);
+    rightLayout->addWidget(historyPanel);
+
+    rightLayout->setSpacing(0);
+    rightLayout->setContentsMargins(0, 0, 0, 0);
+
+    rightContainer->setLayout(rightLayout);
 
     // Left side init
     auto leftContainer = new QWidget(this);
@@ -45,7 +81,9 @@ kpDict::kpDict(QWidget *parent)
     leftContainer->setLayout(leftLayout);
 
     mainSplitter->addWidget(leftContainer);
-    mainSplitter->addWidget(historyPanel);
+    mainSplitter->addWidget(rightContainer);
+
+    mainSplitter->setCollapsible(mainSplitter->indexOf(leftContainer), false);
 
     this->setCentralWidget(mainSplitter);
     this->setMinimumSize(500, 400);
