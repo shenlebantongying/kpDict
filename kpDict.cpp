@@ -6,6 +6,12 @@ kpDict::kpDict(QWidget *parent)
 
     // Construct GUI
 
+    auto centralLayout = new QVBoxLayout(this);
+    centralLayout->setSpacing(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
+
+    auto toolBar = new QHBoxLayout(this);
+
     auto mainSplitter = new QSplitter(this);
 
     auto rightContainer = new QWidget(this);
@@ -72,7 +78,6 @@ kpDict::kpDict(QWidget *parent)
     searchBar->addWidget(autoCheckBtn);
     searchBar->addWidget(wordInputField);
 
-    leftLayout->addLayout(searchBar);
     leftLayout->addLayout(dictRow);
     leftLayout->addWidget(browser);
     leftLayout->setSpacing(0);
@@ -86,7 +91,15 @@ kpDict::kpDict(QWidget *parent)
     mainSplitter->setCollapsible(mainSplitter->indexOf(leftContainer), false);
     mainSplitter->setCollapsible(mainSplitter->indexOf(rightContainer), false);
 
-    this->setCentralWidget(mainSplitter);
+    centralLayout->addLayout(searchBar);
+    centralLayout->addLayout(toolBar);
+    centralLayout->addWidget(mainSplitter);
+
+    auto mainContainer = new QWidget(this);
+    mainContainer->setLayout(centralLayout);
+
+    this->setCentralWidget(mainContainer);
+
     this->setMinimumSize(500, 400);
     this->resize(850, 850);
 
