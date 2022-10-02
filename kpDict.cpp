@@ -24,7 +24,7 @@ kpDict::kpDict(QWidget *parent)
     const QString LEFT_TRI = "◀";
 
     auto hideHistoryBtn = new QPushButton(RIGHT_TRI);
-    hideHistoryBtn->setFixedWidth(10); // Qt's default font side is 9, 10 should be safe
+    hideHistoryBtn->setFixedWidth(12); // Qt's default font side is 9
     hideHistoryBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 ///// Magic Ends
     connect(hideHistoryBtn, &QPushButton::clicked,
@@ -84,6 +84,7 @@ kpDict::kpDict(QWidget *parent)
     mainSplitter->addWidget(rightContainer);
 
     mainSplitter->setCollapsible(mainSplitter->indexOf(leftContainer), false);
+    mainSplitter->setCollapsible(mainSplitter->indexOf(rightContainer), false);
 
     this->setCentralWidget(mainSplitter);
     this->setMinimumSize(500, 400);

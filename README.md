@@ -1,6 +1,12 @@
-# KopperDict
+# kpDict
 
-A online dictionary result aggregator.
+A simple online dictionary result aggregator.
+
+# Compare to similar projects
+
+[GoldenDict](https://github.com/xiaoyifang/goldendict) has a robust legacy of supporting off-line dictionaries, but it is kinda bloat for users who only use online dictionaries. This project was born due to my frustration with GoldenDict (CopperDict -> KopperDict -> kpDict).
+
+[Crow Translate](https://github.com/crow-translate/crow-translate) uses [online translator's API](https://github.com/crow-translate/QOnlineTranslator/blob/1.6.0/src/qonlinetranslator.h#L502). The result is much cleaner but adding new translator is not an easy maneuver.
 
 # Build
 
