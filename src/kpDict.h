@@ -9,8 +9,8 @@
 #include <QSplitter>
 #include <QStringListModel>
 #include <QVBoxLayout>
-#include <QWebEngineView>
 #include <QWebEngineProfile>
+#include <QWebEngineView>
 
 #include "clipboard.h"
 #include "kpWebView.h"
@@ -21,20 +21,20 @@ class kpDict : public QMainWindow {
 public:
     QString currentSearchSource;
 
-    explicit kpDict(QWidget *parent = nullptr);
+    explicit kpDict(QWidget * parent = nullptr);
 
-    void addDict(const QString &name, const QString &dictPrefix);
+    void addDict(const QString & name, const QString & dictPrefix);
 
     ~kpDict();
 
 private:
-    QLineEdit *wordInputField;
-    kpWebView *webview;
-    QCheckBox *autoCheckBtn;
+    QLineEdit * wordInputField;
+    kpWebView * webview;
+    QCheckBox * autoCheckBtn;
 
-    QListWidget *historyPanel;
-    QHBoxLayout *dictRow;
-    clipboard *clipper;
+    QListWidget * historyPanel;
+    QHBoxLayout * dictRow;
+    clipboard * clipper;
 
     QFile historyFile;
 
@@ -42,5 +42,5 @@ private:
 
     void triggerSearch();
 
-    void newHistory(const QString &word);
+    void newHistory(const QString & word);
 };

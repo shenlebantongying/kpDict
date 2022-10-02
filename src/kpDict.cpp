@@ -1,8 +1,8 @@
 #include "kpDict.h"
 #include "common.h"
 
-kpDict::kpDict(QWidget *parent)
-        : QMainWindow(parent) {
+kpDict::kpDict(QWidget * parent)
+    : QMainWindow(parent) {
 
     // Construct GUI
 
@@ -17,7 +17,7 @@ kpDict::kpDict(QWidget *parent)
     auto rightContainer = new QWidget(this);
     auto rightLayout = new QHBoxLayout(this);
 
-///// Size Constraints are magics, TODO: review size constraints, size policy and min/max size
+    ///// Size Constraints are magics, TODO: review size constraints, size policy and min/max size
     rightLayout->setSizeConstraint(QLayout::SetMaximumSize);
 
     historyPanel = new QListWidget();
@@ -30,9 +30,9 @@ kpDict::kpDict(QWidget *parent)
     const QString LEFT_TRI = "◀";
 
     auto hideHistoryBtn = new QPushButton(RIGHT_TRI);
-    hideHistoryBtn->setFixedWidth(12); // Qt's default font side is 9
+    hideHistoryBtn->setFixedWidth(12);// Qt's default font side is 9
     hideHistoryBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-///// Magic Ends
+    ///// Magic Ends
     connect(hideHistoryBtn, &QPushButton::clicked,
             this, [=] {
                 if (historyPanel->isVisible()) {
@@ -43,7 +43,6 @@ kpDict::kpDict(QWidget *parent)
                     historyPanel->show();
                     hideHistoryBtn->setText(RIGHT_TRI);
                     rightContainer->adjustSize();
-
                 }
             });
 
@@ -138,17 +137,16 @@ kpDict::kpDict(QWidget *parent)
 
         historyFile.open(QIODevice::WriteOnly | QIODevice::Text);
         historyIO.setDevice(&historyFile);
-        for (const auto &s: cachedHistory) {
+        for (const auto & s: cachedHistory) {
             historyIO << s << Qt::endl;
         }
         historyFile.close();
-
     }
 
     historyFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text | QIODevice::Unbuffered);
     historyIO.setDevice(&historyFile);
 
-    for (const auto &s: cachedHistory) {
+    for (const auto & s: cachedHistory) {
         historyPanel->addItem(s);
     }
 
@@ -169,10 +167,9 @@ kpDict::kpDict(QWidget *parent)
                 this->triggerSearch();
                 newHistory(this->wordInputField->text());
             });
-
 }
 
-void kpDict::addDict(const QString &name, const QString &dictPrefix) {
+void kpDict::addDict(const QString & name, const QString & dictPrefix) {
     auto gbtn = new QPushButton(name, this);
     connect(gbtn, &QPushButton::clicked,
             this, [=] {
@@ -198,11 +195,10 @@ void kpDict::triggerSearch() {
     webview->loadUrl(this->currentSearchSource + this->wordInputField->text());
 }
 
-void kpDict::newHistory(const QString &word) {
-    historyIO << wordInputField->text() << Qt::endl;;
+void kpDict::newHistory(const QString & word) {
+    historyIO << wordInputField->text() << Qt::endl;
+    ;
     historyPanel->insertItem(0, word);
 }
 
-kpDict::~kpDict()
-= default;
-
+kpDict::~kpDict() = default;

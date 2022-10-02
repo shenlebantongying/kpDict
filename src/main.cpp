@@ -4,10 +4,10 @@
 #include <QFile>
 #include <iostream>
 
-#include "kpDict.h"
 #include "common.h"
+#include "kpDict.h"
 
-kpDict *kpdict;
+kpDict * kpdict;
 
 void loadUserConfig() {
     auto p = QDir::home();
@@ -22,7 +22,7 @@ void loadUserConfig() {
         configFile.open(QIODevice::WriteOnly);
         QTextStream out(&configFile);
         out <<
-            R"(Google https://www.google.com/search?q=
+                R"(Google https://www.google.com/search?q=
 Merriam-Webster https://www.merriam-webster.com/dictionary/
 Wiktionary https://en.wiktionary.org/wiki/
 Oxford https://www.lexico.com/definition/
@@ -54,8 +54,7 @@ Youdao https://www.youdao.com/result?lang=en&word=)";
     configFile.close();
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char * argv[]) {
     QApplication a(argc, argv);
     kpdict = new kpDict();
     loadUserConfig();

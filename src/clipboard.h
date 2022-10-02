@@ -7,9 +7,9 @@
 #include <QTimer>
 
 class clipboard : public QObject {
-Q_OBJECT
+    Q_OBJECT
 public:
-    explicit clipboard(QObject *parent = nullptr);
+    explicit clipboard(QObject * parent = nullptr);
 
     QString curClipboardContent;
     [[nodiscard]] QString getWord() const;
@@ -18,7 +18,7 @@ public:
     void observe();
 
 private:
-    QClipboard *sysClipboard;
+    QClipboard * sysClipboard;
     QTimer m_clipboardMonitorTimer;
     QString m_currentContent;
     void updateCurClipboard();
