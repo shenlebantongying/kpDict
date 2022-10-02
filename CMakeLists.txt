@@ -24,10 +24,13 @@ set(PROJECT_SOURCES
         src/kpWebView.h
         src/kpWebView.cpp
         src/common.h
+        src/settingsDialog.h
+        src/settingsDialog.cpp
         )
 
 qt_add_executable(${PROJECT_NAME}
     MANUAL_FINALIZATION
+    data/icons.qrc
     ${PROJECT_SOURCES}
 )
 

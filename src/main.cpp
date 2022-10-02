@@ -11,8 +11,8 @@ kpDict * kpdict;
 
 void loadUserConfig() {
     auto p = QDir::home();
-    p.mkpath(KPDICT_PATH);
-    p.cd(KPDICT_PATH);
+    p.mkpath(kp::CONFIG_PATH);
+    p.cd(kp::CONFIG_PATH);
 
     auto configFile = QFile(p.absoluteFilePath("urls"));
 
@@ -25,7 +25,7 @@ void loadUserConfig() {
                 R"(Google https://www.google.com/search?q=
 Merriam-Webster https://www.merriam-webster.com/dictionary/
 Wiktionary https://en.wiktionary.org/wiki/
-Oxford https://www.lexico.com/definition/
+Oxford https://www.dictionary.com/browse/
 Longman https://www.ldoceonline.com/dictionary/
 Cambridge https://dictionary.cambridge.org/dictionary/english/
 Youdao https://www.youdao.com/result?lang=en&word=)";

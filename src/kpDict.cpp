@@ -1,3 +1,5 @@
+#include <QFile>
+#include <iostream>
 #include "kpDict.h"
 #include "common.h"
 
@@ -9,8 +11,6 @@ kpDict::kpDict(QWidget * parent)
     auto centralLayout = new QVBoxLayout(this);
     centralLayout->setSpacing(0);
     centralLayout->setContentsMargins(0, 0, 0, 0);
-
-    auto toolBar = new QHBoxLayout(this);
 
     auto mainSplitter = new QSplitter(this);
 
@@ -65,7 +65,7 @@ kpDict::kpDict(QWidget * parent)
     wordInputField = new QLineEdit(this);
     wordInputField->setContentsMargins(0, 0, 0, 0);
 
-    auto searchBar = new QHBoxLayout(this);
+    auto toolBar = new QHBoxLayout(this);
 
     dictRow = new QHBoxLayout(this);
     dictRow->setContentsMargins(0, 0, 0, 0);
@@ -74,8 +74,18 @@ kpDict::kpDict(QWidget * parent)
     webview = new kpWebView(this);
     // Left side combing
 
-    searchBar->addWidget(autoCheckBtn);
-    searchBar->addWidget(wordInputField);
+    toolBar->addWidget(autoCheckBtn);
+    toolBar->addWidget(wordInputField);
+
+    auto settingBtn = new QPushButton(this);
+    settingBtn->setIcon(QIcon(":/icons/setting.svg"));
+
+    settings = new settingsDialog(this);
+
+    connect(settingBtn,&QPushButton::clicked,
+            settings,&QWidget::show);
+
+    toolBar->addWidget(settingBtn);
 
     leftLayout->addLayout(dictRow);
     leftLayout->addWidget(webview);
@@ -90,7 +100,6 @@ kpDict::kpDict(QWidget * parent)
     mainSplitter->setCollapsible(mainSplitter->indexOf(leftContainer), false);
     mainSplitter->setCollapsible(mainSplitter->indexOf(rightContainer), false);
 
-    centralLayout->addLayout(searchBar);
     centralLayout->addLayout(toolBar);
     centralLayout->addWidget(mainSplitter);
 
@@ -100,7 +109,7 @@ kpDict::kpDict(QWidget * parent)
     this->setCentralWidget(mainContainer);
 
     this->setMinimumSize(500, 400);
-    this->resize(850, 850);
+    this->resize(kp::INIT_WIDTH, kp::INIT_HEIGHT);
 
     // Logic
     clipper = new clipboard();
@@ -108,7 +117,7 @@ kpDict::kpDict(QWidget * parent)
     // Handle History file
     // TODO: ugly
     auto p = QDir::home();
-    p.cd(KPDICT_PATH);
+    p.cd(kp::CONFIG_PATH);
     historyFile.setFileName(p.absoluteFilePath("history"));
 
     // load existing history to cachedHistory

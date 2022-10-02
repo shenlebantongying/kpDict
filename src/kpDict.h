@@ -14,6 +14,7 @@
 
 #include "clipboard.h"
 #include "kpWebView.h"
+#include "settingsDialog.h"
 
 class kpDict : public QMainWindow {
     Q_OBJECT
@@ -35,6 +36,8 @@ private:
     QListWidget * historyPanel;
     QHBoxLayout * dictRow;
     clipboard * clipper;
+
+    settingsDialog * settings;
 
     QFile historyFile;
 
