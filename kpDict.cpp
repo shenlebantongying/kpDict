@@ -71,15 +71,15 @@ kpDict::kpDict(QWidget *parent)
     dictRow = new QHBoxLayout(this);
     dictRow->setContentsMargins(0, 0, 0, 0);
 
-    browser = new QWebEngineView(this);
 
+    webview = new kpWebView(this);
     // Left side combing
 
     searchBar->addWidget(autoCheckBtn);
     searchBar->addWidget(wordInputField);
 
     leftLayout->addLayout(dictRow);
-    leftLayout->addWidget(browser);
+    leftLayout->addWidget(webview);
     leftLayout->setSpacing(0);
     leftLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -195,7 +195,7 @@ void kpDict::addDict(const QString &name, const QString &dictPrefix) {
 
 
 void kpDict::triggerSearch() {
-    browser->load(this->currentSearchSource + this->wordInputField->text());
+    webview->loadUrl(this->currentSearchSource + this->wordInputField->text());
 }
 
 void kpDict::newHistory(const QString &word) {

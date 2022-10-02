@@ -19,6 +19,8 @@ set(PROJECT_SOURCES
         kpDict.h
         clipboard.cpp
         clipboard.h
+        kpWebView.h
+        kpWebView.cpp
         common.h
         )
 

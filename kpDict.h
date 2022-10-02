@@ -10,8 +10,10 @@
 #include <QStringListModel>
 #include <QVBoxLayout>
 #include <QWebEngineView>
+#include <QWebEngineProfile>
 
 #include "clipboard.h"
+#include "kpWebView.h"
 
 class kpDict : public QMainWindow {
     Q_OBJECT
@@ -27,7 +29,7 @@ public:
 
 private:
     QLineEdit *wordInputField;
-    QWebEngineView *browser;
+    kpWebView *webview;
     QCheckBox *autoCheckBtn;
 
     QListWidget *historyPanel;
