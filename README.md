@@ -2,7 +2,28 @@
 
 A simple online dictionary result aggregator.
 
-# Compare to similar projects
+## Main Usage:
+
+1. Copy text to clipboard or Type in the search bar directly.
+2. Click the buttons below to switch the dictionary in use.
+3. The result page will update automatically.
+
+# Help Wanted
+
++ An icon
++ Packaging for linux distros
++ Qt/C++ coding
++ Suggestions & ideas
+
+Please drop by the [issue](https://gitlab.com/slbtty/kopperdict/-/issues) list for communication.
+
+# [Screenshots](https://gitlab.com/slbtty/kopperdict/-/wikis/screenshots)
+
+Current version:
+
+<img src="https://gitlab.com/slbtty/kopperdict/-/wikis/uploads/15360cff60ee658dc9b34e0efea1735e/Screenshot_2022-10-02_201925.png" width=400>
+
+# Comparison to similar projects
 
 [GoldenDict](https://github.com/xiaoyifang/goldendict) has a robust legacy of supporting off-line dictionaries, but it is kinda bloat for users who only use online dictionaries. This project was born due to my frustration with GoldenDict (CopperDict -> KopperDict -> kpDict).
 
